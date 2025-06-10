@@ -163,6 +163,7 @@ const vueConfig = {
 
   devServer: {
     port: 8000,
+	open: true, // 启动时自动打开默认浏览器
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8888/api',

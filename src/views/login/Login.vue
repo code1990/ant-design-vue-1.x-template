@@ -120,6 +120,8 @@ export default {
 		username: 'admin',
 		password: '12345678'
 	  });
+	  // 页面加载完成后自动登录
+      this.doLogin();
 	},
   methods: {
     /**
