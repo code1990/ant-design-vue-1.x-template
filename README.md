@@ -107,3 +107,21 @@ chore: 升级依赖包 ant-design-vue 到 v1.7.8
 bash复制编辑feat(login): 添加默认用户名和密码提示
 fix(router): 修复登录后无法跳转的问题
 ```
+
+```Md
+ant-design-vue-1.x-template\src\mock\user\getUserMenu.js 自定义主菜单的入口
+ant-design-vue-1.x-template\src\config\defaultRouter.js constantRouterMap 自定义路由入口
+ant-design-vue-1.x-template\src\views\system\DevelopManage.vue 前端交互路由跳转入口
+
+前端路由写法
+<router-link to="/" exact>首页</router-link>
+    <router-link to="/login">登录</router-link>
+    <router-link to="/dashboard">控制台</router-link>
+    <router-link to="/about">关于我们</router-link>
+    
+    http://localhost:8000/system/DevelopManage 前端访问地址
+```
+
+
+
+

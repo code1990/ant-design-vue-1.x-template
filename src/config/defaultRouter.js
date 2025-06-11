@@ -50,6 +50,25 @@ export default {
     },
     hidden: true
   },
+  // 新增自定义业务路由
+  constantRouterMap: [
+    {
+      path: '/page1',
+      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+    },
+    {
+      path: '/page2',
+      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+    },
+    {
+      path: '/page3',
+      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+    },
+    {
+      path: '/page4',
+      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+    }
+  ],
 
   notFoundRouter: [
     {
@@ -76,7 +95,5 @@ export default {
       redirect: '/PageError404',
       hidden: true
     }
-  ],
-
-  constantRouterMap: []
+  ]
 }

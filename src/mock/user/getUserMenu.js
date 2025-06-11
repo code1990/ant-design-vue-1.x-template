@@ -86,6 +86,21 @@ Mock.mock(Utils.toRegex(api.getUserMenu), 'post', options => {
         hideInMenu: 'N',
         allowCache: 'Y'
       }
+    },
+    {
+      id: '27245863256459495',
+      name: 'DevelopManage',
+      path: '/system/DevelopManage',
+      parentId: '27245863256459422',
+      component: 'RoleManage',
+      redirect: '',
+      meta: {
+        title: '开发中心',
+        icon: '',
+        hideChildInMenu: 'N',
+        hideInMenu: 'N',
+        allowCache: 'Y'
+      }
     }
   ])
 
