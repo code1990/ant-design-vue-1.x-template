@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       data: [
         {
@@ -37,7 +37,7 @@ export default {
         {
           title: '动态表格4',
           url: '/page4'
-        },
+        }
       ]
     }
   }

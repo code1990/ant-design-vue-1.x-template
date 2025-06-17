@@ -58,15 +58,15 @@ export default {
     },
     {
       path: '/page2',
-      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+      component: () => import('@/views/system/components/DevelopManage/Page2.vue')
     },
     {
       path: '/page3',
-      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+      component: () => import('@/views/system/components/DevelopManage/Page3.vue')
     },
     {
       path: '/page4',
-      component: () => import('@/views/system/components/DevelopManage/Page1.vue')
+      component: () => import('@/views/system/components/DevelopManage/main.vue')
     }
   ],
 
