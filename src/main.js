@@ -12,6 +12,10 @@ import './main.less'
 import './permission'
 import './mock/index'
 
+import { Collapse } from 'ant-design-vue'
+
+// Collapse.Panel 是子组件
+Vue.use(Collapse)
 // 实例化
 new Vue({
   router,

@@ -67,6 +67,14 @@ export default {
     {
       path: '/page4',
       component: () => import('@/views/system/components/DevelopManage/main.vue')
+    },
+    {
+      path: '/page5',
+      component: () => import('@/views/system/components/DevelopManage/Page5.vue')
+    },
+    {
+      path: '/page6',
+      component: () => import('@/views/system/components/DevelopManage/Page6.vue')
     }
   ],
 

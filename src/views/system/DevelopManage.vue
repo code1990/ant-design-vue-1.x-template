@@ -37,6 +37,14 @@ export default {
         {
           title: '动态表格4',
           url: '/page4'
+        },
+        {
+          title: '动态表格4',
+          url: '/page5'
+        },
+        {
+          title: '高德地图',
+          url: '/page6'
         }
       ]
     }
