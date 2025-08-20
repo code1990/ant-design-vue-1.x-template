@@ -64,4 +64,9 @@ export default {
 ::v-deep .ant-card-head-title {
   color: white;
 }
+
+::v-deep .ant-card-body{
+  padding:24px !important;
+  zoom: 1 !important;
+}
 </style>

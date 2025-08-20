@@ -51,21 +51,24 @@
               </div>
               <!-- div122 进度条 -->
               <div class="card chart-card">
-                <div class="card-title">干吨水电耗(kWh/(km-MPa))</div>
+                <div class="card-title">
+                  <div style="font-size: 30px; float: left">干吨水电耗</div>
+                  <div style="float: left; line-height: 60px">(kWh/(km-MPa))</div>
+                </div>
                 <div class="center-num">340</div>
+                <div class="progress-labels">
+                  <div style="float: left; width: 33%; text-align: left">0</div>
+                  <div style="float: left; width: 33%; text-align: center">380</div>
+                  <div style="float: left; width: 33%; text-align: right">760</div>
+                </div>
                 <a-progress
                   :percent="Math.round((340 / 760) * 100)"
                   stroke-color="{ '0%':'#87d068','100%':'#f5222d'}"
                 />
                 <div class="progress-labels">
-                  <span>0</span>
-                  <span>380</span>
-                  <span>760</span>
-                </div>
-                <div class="progress-labels">
-                  <span>优</span>
-                  <span>中</span>
-                  <span>差</span>
+                  <div style="float: left; width: 33%; text-align: left">优</div>
+                  <div style="float: left; width: 33%; text-align: center">中</div>
+                  <div style="float: left; width: 33%; text-align: right">差</div>
                 </div>
               </div>
             </a-col>
@@ -81,32 +84,38 @@
             <div class="panel-title">泵房状态</div>
             <div class="pump-status">
               <div class="status-item">
-                <a-icon type="dashboard" />
-                在线泵房 579
+                <a-icon type="dashboard" style="font-size: 30px;color:#3CCCA6;float: left;"/>
+                <div style="float: left;line-height: 30px;margin-left: 20px;">在线泵房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;579</div>
               </div>
               <div class="status-item">
-                <a-icon type="close-circle" />
-                异常 19
+                <a-icon type="close-circle" style="font-size: 30px;color:#FE4C4A;float: left;"/>
+                <div style="float: left;line-height: 30px;margin-left: 20px;">异常&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19</div>
               </div>
               <div class="status-item">
-                <a-icon type="warning" />
-                预警 121
+                <a-icon type="warning" style="font-size: 30px;color:#FCFC00;float: left;"/>
+                <div style="float: left;line-height: 30px;margin-left: 20px;">预警&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121</div>
               </div>
               <div class="status-item">
-                <a-icon type="poweroff" />
-                离线 9
+                <a-icon type="poweroff" style="font-size: 30px;color:#0066FF;float: left;"/>
+                <div style="float: left;line-height: 30px;margin-left: 20px;">离线&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9</div>
               </div>
             </div>
           </div>
 
           <div class="card">
             <div class="card-title">维修/维护</div>
-            <p>维修 5/12</p>
-            <a-progress :percent="42" />
-            <p>保养 8/9</p>
-            <a-progress :percent="89" status="active" />
-            <p>巡检 8/21</p>
-            <a-progress :percent="38" status="exception" />
+            <div class="progress-info">
+              <div style="float: left;width: 30%;">维修 5/12</div>
+              <a-progress :percent="42"  style="float: left;width: 70%;"/>
+            </div>
+            <div class="progress-info">
+              <div style="float: left;width: 30%;">保养 8/9</div>
+              <a-progress :percent="89" status="active"  style="float: left;width: 70%;"/>
+            </div>
+            <div class="progress-info">
+              <div  style="float: left;width: 30%;">巡检 8/21</div>
+              <a-progress :percent="38" status="exception"  style="float: left;width: 70%;"/>
+            </div>
           </div>
         </a-col>
       </a-row>
@@ -192,37 +201,83 @@ export default {
     },
     // 环形进度条
     initCircleCharts() {
+      const COLORS = ['#FB6260', '#0196FA', '#FEC245', '#4BCED0']
+
+      // 简单的 HEX -> RGBA 转换，给“异常”做同色浅底
+      const hexToRgba = (hex, a = 0.18) => {
+        const n = hex.replace('#', '')
+        const r = parseInt(n.slice(0, 2), 16)
+        const g = parseInt(n.slice(2, 4), 16)
+        const b = parseInt(n.slice(4, 6), 16)
+        return `rgba(${r},${g},${b},${a})`
+      }
+
       this.waterQuality.forEach((item, idx) => {
         const dom = document.getElementById('circle' + idx)
+        if (!dom) return
         const chart = echarts.init(dom)
+
+        // ✅ 按数组下标取色：每个圆环固定主色
+        const base = COLORS[idx % COLORS.length]
+        const bg = hexToRgba(base, 0.18)
+
+        // 这里用百分比示例；如果你要“正常 100 / 异常 200”，把 value 改成 100/200 即可
+        const data = [
+          {
+            name: '正常',
+            value: item.percent,
+            itemStyle: { color: base },
+          },
+          {
+            name: '异常',
+            value: Math.max(0, 100 - item.percent),
+            itemStyle: { color: bg },
+          },
+        ]
+
+        const legendValueMap = data.reduce((m, d) => ((m[d.name] = d.value), m), {})
+
         chart.setOption({
+          // 不用全局 color 队列，改为各 data 的 itemStyle 定色（由 idx 决定）
+          legend: {
+            orient: 'vertical',
+            right: 80,
+            top: 'middle',
+            icon: 'rect', // ✅ 正方形
+            itemWidth: 12,
+            itemHeight: 12,
+            textStyle: { color: '#666' },
+            formatter(name) {
+              const v = legendValueMap[name] ?? ''
+              return `${name} ${v}`
+            },
+          },
           series: [
             {
               type: 'pie',
               radius: ['70%', '90%'],
-              avoidLabelOverlap: false,
+              center: ['33%', '50%'], // ✅ 环状居左
+              avoidLabelOverlap: true,
               label: { show: false },
-              data: [
-                {
-                  value: item.percent,
-                  name: '正常',
-                },
-                {
-                  value: 100 - item.percent,
-                  name: '异常',
-                },
-              ],
+              labelLine: { show: false },
+              itemStyle: {
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              data,
             },
           ],
           graphic: {
             type: 'text',
-            left: 'center',
+            left: '30%', // 与饼图中心对齐
             top: 'center',
             style: {
-              text: `${item.percent}% ${item.label}\n正常${item.normal}\n异常${item.abnormal}`,
+              text: `${item.percent}%\n${item.label}`,
               textAlign: 'center',
               fill: '#333',
               fontSize: 12,
+              lineHeight: 18,
+              fontWeight: 500,
             },
           },
         })
@@ -293,7 +348,7 @@ export default {
 }
 
 .icon {
-  font-size: 24px;
+  font-size: 40px;
   margin-right: 8px;
   color: #1890ff;
 }
@@ -318,7 +373,7 @@ export default {
 }
 
 .center-num {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 8px;
@@ -328,16 +383,26 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
+  width: 100%;
 }
 
 .pump-status {
   display: flex;
   flex-wrap: wrap;
+  background-color: #F2F2F2;
+  padding: 10px;
 }
 
 .status-item {
-  width: 50%;
+  width: 100%;
   margin-bottom: 6px;
   font-size: 13px;
+  height: 30px;
+  margin-left: 30%;
+}
+.progress-info{
+  width: 100% ;
+  float: left;
+  padding: 5px 0;
 }
 </style>
