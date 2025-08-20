@@ -30,7 +30,7 @@
       <layout-avatar/>
     </template>
 
-    <template #footerRender/>
+    <template slot="footer"Render/>
 
     <layout-setting-drawer v-if="isPreview"/>
 

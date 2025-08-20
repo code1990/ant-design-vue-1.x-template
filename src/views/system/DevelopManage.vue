@@ -45,6 +45,38 @@ export default {
         {
           title: '高德地图',
           url: '/page6'
+        },
+        {
+          title: '地图统计',
+          url: '/page7'
+        },
+        {
+          title: '下拉改造',
+          url: '/page8'
+        },
+        {
+          title: '污水雨水',
+          url: '/page9'
+        },
+        {
+          title: '深色地图',
+          url: '/darkMap'
+        },
+        {
+          title: 'openlayer+天地图地图',
+          url: '/openTMap'
+        },
+        {
+          title: 'openlayer+高德地图',
+          url: '/openAMap'
+        },
+        {
+          title: 'preview地图',
+          url: '/previewMap'
+        },
+        {
+          title: '组件弹窗测试中心',
+          url: '/modal'
         }
       ]
     }

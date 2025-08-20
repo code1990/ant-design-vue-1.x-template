@@ -13,7 +13,7 @@ import './permission'
 import './mock/index'
 
 import { Collapse } from 'ant-design-vue'
-
+import vueSeamlessScroll from 'vue-seamless-scroll'
 // Collapse.Panel 是子组件
 Vue.use(Collapse)
 // 实例化
@@ -24,5 +24,6 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+Vue.use(vueSeamlessScroll)
 // 消除生产消息
 Vue.config.productionTip = false

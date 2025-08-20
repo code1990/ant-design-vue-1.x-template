@@ -11,18 +11,18 @@ const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const assetsCDN = {
   externals: {
-    vue: 'Vue',
-    vuex: 'Vuex',
-    axios: 'axios',
-    'vue-router': 'VueRouter'
+    'vue': 'Vue',
+    'vuex': 'Vuex',
+    'axios': 'axios',
+    'vue-router': 'VueRouter',
   },
   js: [
     '//cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js',
     '//cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js',
     '//cdn.jsdelivr.net/npm/axios@1.2.1/dist/axios.min.js',
-    '//cdn.jsdelivr.net/npm/vue-router@3.6.5/dist/vue-router.min.js'
+    '//cdn.jsdelivr.net/npm/vue-router@3.6.5/dist/vue-router.min.js',
   ],
-  css: []
+  css: [],
 }
 
 const vueConfig = {
@@ -34,36 +34,32 @@ const vueConfig = {
     plugins: [
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/
+        contextRegExp: /moment$/,
       }),
 
-      ...(
-        isEnvProd
-          ? [
+      ...(isEnvProd
+        ? [
             new CompressionWebpackPlugin({
               filename: '[path][base].gz[query]',
               algorithm: 'gzip',
               test: new RegExp('\\.(' + ['html', 'js', 'css'].join('|') + ')$'),
               deleteOriginalAssets: false,
               threshold: 10240,
-              minRatio: 0.8
-            })
+              minRatio: 0.8,
+            }),
           ]
-          : []
-      ),
+        : []),
 
-      ...(
-        isAnalyzer
-          ? [
+      ...(isAnalyzer
+        ? [
             new BundleAnalyzer({
               analyzerPort: 'auto',
               analyzerMode: 'server',
               generateStatsFile: true,
-              statsOptions: { source: false }
-            })
+              statsOptions: { source: false },
+            }),
           ]
-          : []
-      )
+        : []),
     ],
 
     optimization: {
@@ -82,7 +78,7 @@ const vueConfig = {
             minChunks: 1,
             maxInitialRequests: 5,
             minSize: 0,
-            priority: 10
+            priority: 10,
           },
           antDesign: {
             chunks: 'all',
@@ -90,7 +86,7 @@ const vueConfig = {
             test: /\/node_modules\/@ant-design\//,
             minChunks: 1,
             minSize: 0,
-            priority: 20
+            priority: 20,
           },
           antDesignVue: {
             chunks: 'all',
@@ -98,21 +94,21 @@ const vueConfig = {
             test: /\/node_modules\/ant-design-vue\//,
             minChunks: 1,
             minSize: 0,
-            priority: 30
+            priority: 30,
           },
           styles: {
             name: 'styles',
             test: /\.(sa|sc|c|le)ss$/,
             chunks: 'all',
-            enforce: true
-          }
-        }
+            enforce: true,
+          },
+        },
       },
       minimize: isEnvProd,
-      minimizer: isEnvProd ? [new TerserWebpackPlugin()] : []
+      minimizer: isEnvProd ? [new TerserWebpackPlugin()] : [],
     },
 
-    externals: isEnvProd ? assetsCDN.externals : {}
+    externals: isEnvProd ? assetsCDN.externals : {},
   },
 
   chainWebpack: config => {
@@ -156,29 +152,37 @@ const vueConfig = {
           // 'ant-global-header-zindex': '105'
         },
         // DO NOT REMOVE THIS LINE
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
 
   devServer: {
     port: 8000,
-	open: true, // 启动时自动打开默认浏览器
+    open: true, // 启动时自动打开默认浏览器
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8888/api',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
+          '^/api': '',
+        },
+      },
+      '/arcgis': {
+        target: 'http://localhost:6080/arcgis',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/arcgis': '',
+        },
+      },
+    },
   },
 
   lintOnSave: false,
   productionSourceMap: false,
-  transpileDependencies: []
+  transpileDependencies: [],
 }
 
 if (process.env.VUE_APP_PREVIEW === 'true') {

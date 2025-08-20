@@ -75,9 +75,60 @@ export default {
     {
       path: '/page6',
       component: () => import('@/views/system/components/DevelopManage/Page6.vue')
+    },
+    {
+      path: '/page7',
+      component: () => import('@/views/system/components/DevelopManage/Page7.vue')
+    },
+    {
+      path: '/page8',
+      component: () => import('@/views/system/components/DevelopManage/Page8.vue')
+    },
+    {
+      path: '/page9',
+      component: () => import('@/views/system/components/DevelopManage/Page9.vue')
+    },
+    {
+      path: '/darkMap',
+      component: () => import('@/views/system/components/DevelopManage/DarkMap.vue')
+    },
+    {
+      path: '/openTMap',
+      component: () => import('@/views/system/components/DevelopManage/OpenTMap.vue')
+    },
+    {
+      path: '/openAMap',
+      component: () => import('@/views/system/components/DevelopManage/OpenAMap.vue')
+    },
+    {
+      path: '/previewMap',
+      component: () => import('@/views/system/components/DevelopManage/DrawPreviewMap.vue')
+    },
+    {
+      path: '/modal',
+      component: () => import('@/views/system/components/DevelopManage/ModalCenter.vue')
+    },
+    {
+      path: '/main3',
+      component: () => import('@/views/system/components/DevelopManage/river/main3.vue')
+    },
+    {
+      path: '/tip',
+      component: () => import('@/views/system/components/DevelopManage/river/TipCenter.vue')
+    },
+    {
+      path: '/patrol',
+      component: () => import('@/views/system/components/DevelopManage/patrol/main3.vue')
+    },
+    {
+      path: '/pipe',
+      component: () => import('@/views/system/components/DevelopManage/pipe/main3.vue')
+    },
+    {
+      path: '/panel',
+      component: () => import('@/views/system/components/DevelopManage/panel.vue')
     }
   ],
-
   notFoundRouter: [
     {
       name: 'PageError403',
