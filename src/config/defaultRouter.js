@@ -127,6 +127,18 @@ export default {
     {
       path: '/panel',
       component: () => import('@/views/system/components/DevelopManage/panel.vue')
+    },
+    {
+      path: '/stat',
+      component: () => import('@/views/system/components/DevelopManage/stat.vue')
+    },
+    {
+      path: '/monitor',
+      component: () => import('@/views/system/components/DevelopManage/monitor.vue')
+    },
+    {
+      path: '/template',
+      component: () => import('@/views/system/components/DevelopManage/template.vue')
     }
   ],
   notFoundRouter: [
