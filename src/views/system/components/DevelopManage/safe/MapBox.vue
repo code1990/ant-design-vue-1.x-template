@@ -6,12 +6,20 @@
 </template>
 <script>
 import AMapLoader from '@amap/amap-jsapi-loader'
+import LeftBox from '@/views/system/components/DevelopManage/monitor/LeftBox.vue'
+import RightBox from '@/views/system/components/DevelopManage/monitor/RightBox.vue'
+import HeaderBox from '@/views/system/components/DevelopManage/monitor/HeaderBox.vue'
 import * as echarts from 'echarts'
 import guangzhouJson from './gz.json' // 你保存的 GeoJSON
 
 echarts.registerMap('guangzhou', guangzhouJson)
 export default {
   name: 'MapBox',
+  components: {
+    LeftBox,
+    RightBox,
+    HeaderBox,
+  },
   data() {
     return {
       amap: null,

@@ -1,8 +1,8 @@
 <template>
   <div class="headerBox">
-    <div class="leftBox"></div>
+    <div class="leftBox" v-show="false"></div>
     <div class="title">{{ title }}</div>
-    <div class="rightBox"></div>
+    <div class="rightBox" v-show="false"></div>
   </div>
 </template>
 <script>
@@ -10,7 +10,7 @@ export default {
   name: 'HeaderBox',
   data() {
     return {
-      title: '广州市智慧排水监督平台',
+      title: '黄浦区水务安全态势感知',
     }
   },
   methods: {
@@ -31,11 +31,11 @@ export default {
   padding-left: 50px;
   line-height: 50px;
   float: left;
-  background-color: black; /* 背景透明 */
+  background-color: #13152D; /* 背景透明 */
 }
 
 .title {
-  width: 33%;
+  width: 100%;
   float: left;
   color: #5AEDCC;
   height: 100%;

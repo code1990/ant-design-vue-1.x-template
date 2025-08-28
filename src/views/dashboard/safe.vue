@@ -7,10 +7,10 @@
   </div>
 </template>
 <script>
-import MapBox from '@/views/system/components/DevelopManage/monitor/MapBox.vue'
-import HeaderBox from '@/views/system/components/DevelopManage/monitor/HeaderBox.vue'
-import LeftBox from '@/views/system/components/DevelopManage/monitor/LeftBox.vue'
-import RightBox from '@/views/system/components/DevelopManage/monitor/RightBox.vue'
+import MapBox from '@/views/dashboard/safe/MapBox.vue'
+import HeaderBox from '@/views/dashboard/safe/HeaderBox.vue'
+import LeftBox from '@/views/dashboard/safe/LeftBox.vue'
+import RightBox from '@/views/dashboard/safe/RightBox.vue'
 
 export default {
   components: {

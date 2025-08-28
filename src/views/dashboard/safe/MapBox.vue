@@ -1,28 +1,31 @@
 <template>
   <div class="mapMain">
-      <div class="mapImage"></div>
-      <div class="mapBox" ref="map" id="main"></div>
+    <div class="mapImage"></div>
+    <div class="mapBox" ref="map" id="main"></div>
+    <MapBottom class="mapBottom"></MapBottom>
   </div>
 </template>
 <script>
 import AMapLoader from '@amap/amap-jsapi-loader'
 import * as echarts from 'echarts'
 import guangzhouJson from './gz.json' // 你保存的 GeoJSON
+import MapBottom from '@/views/dashboard/safe/MapBottom.vue'
 
 echarts.registerMap('guangzhou', guangzhouJson)
 export default {
   name: 'MapBox',
-  data() {
+  components: { MapBottom },
+  data () {
     return {
       amap: null,
     }
   },
-  mounted() {
+  mounted () {
     // this.initAMap()
     this.initMap()
   },
   methods: {
-    initMap() {
+    initMap () {
       var chart = echarts.init(document.getElementById('main'))
 
       var option = {
@@ -44,10 +47,10 @@ export default {
             color: ['#e0ffff', '#006edd'],
           },
           show: false,
-          itemWidth: 30,    // 放大宽度
-          itemHeight: 250,  // 放大高度
+          itemWidth: 30, // 放大宽度
+          itemHeight: 250, // 放大高度
           textStyle: {
-            fontSize: 16,   // 放大字体
+            fontSize: 16, // 放大字体
           },
         },
         series: [
@@ -60,18 +63,48 @@ export default {
               show: true,
             },
             layoutCenter: ['50%', '50%'], // 地图居中
-            layoutSize: '100%',           // 比容器放大20%
+            layoutSize: '100%', // 比容器放大20%
             data: [
-              { name: '天河区', value: 80 },
-              { name: '越秀区', value: 55 },
-              { name: '白云区', value: 72 },
-              { name: '海珠区', value: 65 },
-              { name: '黄埔区', value: 50 },
-              { name: '番禺区', value: 77 },
-              { name: '花都区', value: 45 },
-              { name: '南沙区', value: 35 },
-              { name: '增城区', value: 60 },
-              { name: '从化区', value: 40 },
+              {
+                name: '天河区',
+                value: 80,
+              },
+              {
+                name: '越秀区',
+                value: 55,
+              },
+              {
+                name: '白云区',
+                value: 72,
+              },
+              {
+                name: '海珠区',
+                value: 65,
+              },
+              {
+                name: '黄埔区',
+                value: 50,
+              },
+              {
+                name: '番禺区',
+                value: 77,
+              },
+              {
+                name: '花都区',
+                value: 45,
+              },
+              {
+                name: '南沙区',
+                value: 35,
+              },
+              {
+                name: '增城区',
+                value: 60,
+              },
+              {
+                name: '从化区',
+                value: 40,
+              },
             ],
           },
         ],
@@ -150,7 +183,7 @@ export default {
                 left: 'auto',
                 bottom: 'auto',
               },
-            })
+            }),
           )
           this.amap.addControl(
             new AMap.ControlBar({
@@ -160,7 +193,7 @@ export default {
                 left: 'auto',
                 bottom: 'auto',
               },
-            })
+            }),
           )
 
           this.arcgisAWSLayer = new AMap.TileLayer({
@@ -335,19 +368,28 @@ export default {
   height: calc(100vh - 50px);
   float: left;
 }
-.mapImage{
+
+.mapImage {
   width: 100%;
   height: 19vh;
   float: left;
-  background-color: black;
-  background-image: url('~@/assets/images/map.png');
-  background-repeat: no-repeat;   /* 不平铺 */
-  background-size: cover;         /* 等比缩放，铺满容器 */
+  background-color: #13152d;
+  background-image: url('~@/assets/images/map2.png');
+  background-repeat: no-repeat; /* 不平铺 */
+  background-size: 110%; /* 等比缩放，铺满容器 */
 }
+
 .mapBox {
   width: 100%;
-  height: calc(81vh - 50px);
-  background-color: black;
+  height: calc(61vh - 50px);
+  background-color: #13152d;
+  float: left;
+}
+
+.mapBottom {
+  width: 100%;
+  height: 20vh;
+  background-color: #13152d;
   float: left;
 }
 </style>

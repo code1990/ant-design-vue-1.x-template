@@ -137,6 +137,10 @@ export default {
       component: () => import('@/views/system/components/DevelopManage/monitor.vue')
     },
     {
+      path: '/safe',
+      component: () => import('@/views/dashboard/safe.vue')
+    },
+    {
       path: '/template',
       component: () => import('@/views/system/components/DevelopManage/template.vue')
     }
