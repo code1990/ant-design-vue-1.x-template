@@ -133,6 +133,14 @@ export default {
       component: () => import('@/views/system/components/DevelopManage/stat.vue')
     },
     {
+      path: '/trade',
+      component: () => import('@/views/trade/Tradingview.vue')
+    },
+    {
+      path: '/demo',
+      component: () => import('@/views/demo/Index.vue')
+    },
+    {
       path: '/monitor',
       component: () => import('@/views/system/components/DevelopManage/monitor.vue')
     },
@@ -141,8 +149,72 @@ export default {
       component: () => import('@/views/dashboard/safe.vue')
     },
     {
+      path: '/chart',
+      component: () => import('@/views/dashboard/chart.vue')
+    },
+    {
+      path: '/water',
+      component: () => import('@/views/dashboard/WaterModal.vue')
+    },
+    {
+      path: '/cost',
+      component: () => import('@/views/dashboard/chart/ChartCost.vue')
+    },
+    {
+      path: '/line',
+      component: () => import('@/views/dashboard/chart/line.vue')
+    },
+    {
+      path: '/line2',
+      component: () => import('@/views/dashboard/chart/mline.vue')
+    },
+    {
+      path: '/tune',
+      component: () => import('@/views/dashboard/vision/TunnelDashboard.vue')
+    },
+    {
+      path: '/waterPage',
+      component: () => import('@/views/dashboard/waterPage.vue')
+    },
+    {
+      path: '/rtu',
+      component: () => import('@/views/dashboard/RTUPage.vue')
+    },
+    {
       path: '/template',
       component: () => import('@/views/system/components/DevelopManage/template.vue')
+    },
+    {
+      path: '/chart100',
+      component: () => import('@/views/dashboard/chart100/index.vue')
+    },
+    {
+      path: '/chart200',
+      component: () => import('@/views/dashboard/chart200/index.vue')
+    },
+    {
+      path: '/tree100',
+      component: () => import('@/views/dashboard/tree100/index.vue')
+    },
+    {
+      path: '/wise',
+      component: () => import('@/views/wise/index.vue')
+    },
+    {
+      path: '/overview',
+      component: () => import('@/views/wise/index.vue')
+    },
+    {
+      path: '/vehicle',
+      component: () => import('@/views/wise/vehicle/index.vue')
+    },
+    {
+      path: '/test100',
+      component: () => import('@/views/test100/index.vue')
+    },
+    {
+      path: '/chart6',
+      component: () => import('@/views/wise/material/chart6.vue')
     }
   ],
   notFoundRouter: [

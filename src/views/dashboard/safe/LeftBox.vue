@@ -4,7 +4,7 @@
       <!-- div1 -->
       <div class="section">
         <div class="title">
-          <span>横向柱状图</span>
+          <span>河长巡查</span>
         </div>
         <div class="content" ref="barChart"></div>
       </div>
@@ -12,9 +12,9 @@
       <!-- div2 -->
       <div class="section">
         <div class="title">
-          <span>无边框表格</span>
+          <span>监测数据</span>
         </div>
-        <div class="content">
+        <div class="content" style="padding: 10px 15px;">
           <div class="custom-table">
             <div class="row header">
               <div class="cell">日期</div>
@@ -35,14 +35,15 @@
       <!-- div3 -->
       <div class="section">
         <div class="title">
-          <span>2×3 网格</span>
+          <span>区域统计</span>
         </div>
         <div class="content grid">
-          <div v-for="(item, index) in gridData" :key="index" class="grid-item">
-            <div class="grid-top">
+          <div v-for="(item, index) in gridData" :key="index" class="grid-item" :style="{borderLeft:' 4px solid ' + colors[index]}">
+            <div class="grid-top" >
+              <div class="stat-box" style="border: none">{{ item.name }}</div>
               <div class="stat-box">{{ item.percent }}</div>
             </div>
-            <div class="grid-bottom">
+            <div class="grid-bottom" :style="{color: colors[index]}">
               {{ item.value }}
             </div>
           </div>
@@ -58,6 +59,7 @@ export default {
   data() {
     return {
       tableData: [],
+      colors: ['#F42951', '#28D39E', '#D65B23', '#351CCE', '#524691', '#138CC7'],
       gridData: [],
     }
   },
@@ -78,6 +80,7 @@ export default {
     },
     mockGrid() {
       this.gridData = Array.from({ length: 6 }).map(() => ({
+        name: '统计',
         percent: `${Math.floor(Math.random() * 100)}%`,
         value: `${Math.floor(Math.random() * 500)},${Math.floor(Math.random() * 500)}`,
       }))
@@ -89,14 +92,28 @@ export default {
       const data2 = dates.map(() => Math.floor(Math.random() * 50))
       chart.setOption({
         tooltip: { trigger: 'axis' },
-        legend: { data: ['河长巡查', '公众反馈'] },
+        legend: {
+          data: ['河长巡查', '公众反馈'],
+          textStyle: {
+            color: 'white',
+          },
+        },
         grid: {
           left: '20%',
           right: '10%',
           bottom: '10%',
           top: '10%',
         },
-        xAxis: { type: 'value' },
+        xAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: { show: false },
+        },
         yAxis: {
           type: 'category',
           data: dates,
@@ -125,7 +142,7 @@ export default {
   width: 20%;
   height: calc(100vh - 50px);
   float: left;
-  background-color: #13152D; /* 背景透明 */
+  background-color: #13152d; /* 背景透明 */
 }
 
 .container {
@@ -138,7 +155,6 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #eee;
 }
 
 .section:last-child {
@@ -150,10 +166,10 @@ export default {
   background: url('~@/assets/images/tip2.png') no-repeat center center;
   background-size: cover;
   display: flex;
-  align-items: center;
+  align-items: self-end;
   padding-left: 10px;
   font-weight: bold;
-  color: #333;
+  color: white;
 }
 
 .content {
@@ -192,31 +208,34 @@ export default {
 .grid-item {
   display: flex;
   flex-direction: column;
-  border-left: 4px solid #1890ff;
+  border-left: 4px solid #28d39e;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border: 1px solid #1890ff;
   padding: 6px;
+  background-color: #263048;
 }
 
 .grid-top {
-  flex: 0 0 60%;
+  flex: 0 0 10%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .stat-box {
-  width: 80%;
+  width: 30%;
   border: 1px solid #1890ff;
   border-radius: 5px;
   text-align: center;
   padding: 4px;
+  color: white;
 }
 
 .grid-bottom {
   flex: 0 0 40%;
   text-align: center;
   font-weight: bold;
+  color: white;
+  font-size: 20px;
 }
 </style>

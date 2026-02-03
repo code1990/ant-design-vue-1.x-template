@@ -31,15 +31,21 @@ export default {
   padding-left: 50px;
   line-height: 50px;
   float: left;
-  background-color: #13152D; /* 背景透明 */
+  background-color: #13152d; /* 背景透明 */
 }
 
 .title {
   width: 100%;
   float: left;
-  color: #5AEDCC;
+  color: #5aedcc;
   height: 100%;
   text-align: center;
+  background-image: url('~@/assets/images/tip3.png');
+  background-repeat: no-repeat;   /* 不平铺 */
+  background-size: 140%;         /* 等比缩放，铺满容器 */
+  background-position: bottom;    /* 居中对齐 */
+  line-height: 25px;
+  font-size: 24px;
 }
 
 .enterBox {
@@ -58,9 +64,9 @@ export default {
   height: 100%;
   margin-top: -10px;
   background-image: url('~@/assets/images/left.png');
-  background-repeat: no-repeat;   /* 不平铺 */
-  background-size: cover;         /* 等比缩放，铺满容器 */
-  background-position: center;    /* 居中对齐 */
+  background-repeat: no-repeat; /* 不平铺 */
+  background-size: cover; /* 等比缩放，铺满容器 */
+  background-position: center; /* 居中对齐 */
 }
 
 .rightBox {
@@ -70,8 +76,8 @@ export default {
   height: 100%;
   margin-top: -10px;
   background-image: url('~@/assets/images/right.png');
-  background-repeat: no-repeat;   /* 不平铺 */
-  background-size: cover;         /* 等比缩放，铺满容器 */
-  background-position: center;    /* 居中对齐 */
+  background-repeat: no-repeat; /* 不平铺 */
+  background-size: cover; /* 等比缩放，铺满容器 */
+  background-position: center; /* 居中对齐 */
 }
 </style>

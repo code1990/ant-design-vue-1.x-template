@@ -1,7 +1,39 @@
 <template>
   <div class="mapMain">
-    <div class="mapImage"></div>
+    <div class="mapImage">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-top red"></div>
+          <div class="card-middle">
+            <span class="card-number">461</span>
+            <span class="card-unit">条</span>
+          </div>
+          <div class="card-bottom">实时告警风险</div>
+        </div>
+
+        <div class="card">
+          <div class="card-top orange"></div>
+          <div class="card-middle">
+            <span class="card-number">123</span>
+            <span class="card-unit">条</span>
+          </div>
+          <div class="card-bottom">审计违规操作</div>
+        </div>
+
+        <div class="card">
+          <div class="card-top blue"></div>
+          <div class="card-middle">
+            <span class="card-number">88</span>
+            <span class="card-unit">条</span>
+          </div>
+          <div class="card-bottom">审计违规操作</div>
+        </div>
+      </div>
+
+    </div>
     <div class="mapBox" ref="map" id="main"></div>
+    <div class="mapLeft"></div>
+    <div class="mapRight"></div>
     <MapBottom class="mapBottom"></MapBottom>
   </div>
 </template>
@@ -374,9 +406,6 @@ export default {
   height: 19vh;
   float: left;
   background-color: #13152d;
-  background-image: url('~@/assets/images/map2.png');
-  background-repeat: no-repeat; /* 不平铺 */
-  background-size: 110%; /* 等比缩放，铺满容器 */
 }
 
 .mapBox {
@@ -391,5 +420,82 @@ export default {
   height: 20vh;
   background-color: #13152d;
   float: left;
+}
+
+.card-container {
+  display: flex;
+  gap: 100px; /* 卡片间距 */
+  padding: 25px;
+  margin-left: 100px;
+}
+
+.card {
+  flex: 0 0 200px;  /* 固定宽度 200px */
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #002855;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+
+.card-top {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px 4px 0 0;
+}
+
+.card-top.red { background-color: #e74c3c; }
+.card-top.orange { background-color: #f39c12; }
+.card-top.blue { background-color: #3498db; }
+
+.card-middle {
+  display: flex;
+  align-items: baseline; /* 数字和单位对齐 */
+}
+
+.card-number {
+  font-size: 40px;
+  font-weight: bold;
+  color: #14ADED;
+}
+
+.card-unit {
+  font-size: 14px;
+  color: white;
+  margin-left: 5px;
+}
+
+.card-bottom {
+  font-size: 16px;
+  color: white;
+  text-align: center;
+}
+
+.mapLeft{
+  width: 40px;
+  height: 30%;
+  position: absolute;
+  background-image: url('~@/assets/images/left2.png');
+  background-repeat: no-repeat;   /* 不平铺 */
+  background-size: cover;         /* 等比缩放，铺满容器 */
+  background-position: bottom;    /* 居中对齐 */
+  top: 30%;
+  margin-left: 60px;
+}
+
+.mapRight{
+  width: 40px;
+  height: 30%;
+  position: absolute;
+  background-image: url('~@/assets/images/right2.png');
+  background-repeat: no-repeat;   /* 不平铺 */
+  background-size: cover;         /* 等比缩放，铺满容器 */
+  background-position: bottom;    /* 居中对齐 */
+  top: 30%;
+  margin-right: 60px;
+  right: 20%;
 }
 </style>

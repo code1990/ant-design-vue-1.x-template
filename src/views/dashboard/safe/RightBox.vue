@@ -2,12 +2,12 @@
   <div class="rightBox">
     <div class="container">
       <!-- div1 -->
-      <div class="section">
+      <div class="section" style="background-color: #131f38">
         <div class="title"><span>用水统计</span></div>
         <div class="content grid2x2 crystal">
-          <div v-for="(item, i) in waterStats" :key="i" class="crystal-item">
+          <div v-for="(item, i) in waterStats" :key="i" :class="['crystal-item', `crystal-${i}`]">
             <div class="crystal-text">{{ item.label }}</div>
-            <div class="crystal-value">{{ item.value }}</div>
+            <div class="crystal-value" v-if="false">{{ item.value }}</div>
           </div>
         </div>
       </div>
@@ -17,13 +17,16 @@
         <div class="title"><span>监测统计</span></div>
         <div class="content grid2x2 monitor">
           <div v-for="(item, i) in monitorStats" :key="i" class="monitor-item">
-            <div class="left-bar"></div>
+            <div :class="['left-bar', `left-bar-${i}`]"></div>
             <div class="right-content">
               <div class="right-top">
-                <a-icon type="dropbox" style="margin-right: 6px" />
-                <span>{{ item.label }}</span>
+                <a-icon type="dashboard" style="margin-right: 6px" />
+                <span v-html="item.label"></span>
               </div>
-              <div class="right-bottom">{{ item.value }}</div>
+              <div :class="['right-bottom', `right-bottom-${i}`]">
+                {{ item.value }}
+                <span style="font-size: 10px">{{ item.unit }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -35,9 +38,9 @@
         <div class="content flex-row">
           <!-- 左侧统计 -->
           <div class="left-stats">
-            <div v-for="(item, i) in sessionStats" :key="i" class="stat-box">
+            <div v-for="(item, i) in sessionStats" :key="i" :class="['stat-box', `stat-box-${i}`]">
               <div class="stat-value">{{ item.value }}</div>
-              <div class="stat-label">{{ item.label }}</div>
+              <div class="stat-label" v-html="item.label"></div>
             </div>
           </div>
           <!-- 右侧堆叠柱状图 -->
@@ -74,20 +77,24 @@ export default {
       ],
       monitorStats: [
         {
-          label: '年累计非农监测取水量',
-          value: '99.9754亿m²',
+          label: '年累计非农<br>监测取水量',
+          value: '99.9754',
+          unit: '亿m²',
         },
         {
           label: '监测点在线率',
-          value: '88.56%',
+          value: '88.56',
+          unit: '%',
         },
         {
-          label: '年累计灌区渠首监测取水量',
-          value: '88.6060亿m',
+          label: '年累计灌区渠<br>首监测取水量',
+          value: '88.6060',
+          unit: '亿m²',
         },
         {
-          label: '年累计灌区首监测取水量',
-          value: '88.6060亿m',
+          label: '年累计灌区渠<br>首监测取水量',
+          value: '88.6060',
+          unit: '亿m²',
         },
       ],
       sessionStats: [
@@ -117,18 +124,33 @@ export default {
           trigger: 'axis',
           axisPointer: { type: 'shadow' },
         },
-        legend: { data: ['总会话数', '超长会话数'] },
+        legend: {
+          data: ['总会话数', '超长会话数'],
+          textStyle: {
+            color: '#fff',
+          },
+        },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
+          top: 30,
+          left: 10,
+          right: 10,
+          bottom: 50,
           containLabel: true,
         },
         xAxis: {
           type: 'category',
           data: ['DWS数据库', 'HIMe数据库', 'HBase数据库'],
+          axisLabel: {
+            color: '#fff',
+          },
         },
-        yAxis: { type: 'value' },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            color: '#fff',
+          },
+        },
+        color: ['#0D82FD', '#0FFCCC'], // 系列1/系列2颜色
         series: [
           {
             name: '总会话数',
@@ -167,7 +189,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #eee;
+  background-color: #131f38;
 }
 
 .title {
@@ -175,10 +197,10 @@ export default {
   background: url('~@/assets/images/tip2.png') no-repeat center center;
   background-size: cover;
   display: flex;
-  align-items: center;
+  align-items: self-end;
   padding-left: 10px;
   font-weight: bold;
-  color: #333;
+  color: #fff;
 }
 
 .content {
@@ -199,17 +221,18 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #e6f7ff, #bae7ff);
-  border: 2px solid #91d5ff;
   text-align: center;
   width: 100%;
   height: 100%;
+  background-repeat: no-repeat; /* 不平铺 */
+  background-size: 66%; /* 等比缩放，铺满容器 */
+  background-position: bottom; /* 居中对齐 */
 }
 
 .crystal-text {
   font-size: 14px;
-  margin-bottom: 4px;
+  color: white;
+  margin-top: -110px;
 }
 
 .crystal-value {
@@ -221,14 +244,34 @@ export default {
 /* div2 监测 */
 .monitor-item {
   display: flex;
-  border: 1px solid #f0f0f0;
   border-radius: 4px;
   overflow: hidden;
+  height: 100px;
 }
 
 .left-bar {
   width: 6px;
   background: linear-gradient(to bottom, #1890ff, #69c0ff);
+}
+
+.left-bar-0 {
+  width: 6px;
+  background: linear-gradient(to bottom, #4858de, #43a2df);
+}
+
+.left-bar-1 {
+  width: 6px;
+  background: linear-gradient(to bottom, #cd68a8, #7f31d2);
+}
+
+.left-bar-2 {
+  width: 6px;
+  background: linear-gradient(to bottom, #d9543c, #d8bb5e);
+}
+
+.left-bar-3 {
+  width: 6px;
+  background: linear-gradient(to bottom, #e2563c, #2be1f8);
 }
 
 .right-content {
@@ -243,13 +286,30 @@ export default {
   display: flex;
   align-items: center;
   font-size: 14px;
+  color: white;
 }
 
 .right-bottom {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   color: #1890ff;
   text-align: center;
+}
+
+.right-bottom-0 {
+  color: #1890ff;
+}
+
+.right-bottom-1 {
+  color: #cd68a8;
+}
+
+.right-bottom-2 {
+  color: #d9543c;
+}
+
+.right-bottom-3 {
+  color: #2be1f8;
 }
 
 /* div3 会话统计 */
@@ -263,26 +323,50 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  height: 70px;
 }
 
 .stat-box {
   text-align: center;
-  padding: 10px 0;
+  padding: 3px 0;
+  margin-top: 10px;
+  border-left:1px solid #2B7DFE;
+  border-bottom:1px solid #2B7DFE;
+  border-top:1px solid #2B7DFE;
+  background: linear-gradient(to right, #103075, #131F3A);
 }
-
+.stat-box-0{
+  margin-top: 0px;
+}
 .stat-value {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
-  color: #1890ff;
+  color: #fff;
 }
 
 .stat-label {
-  font-size: 14px;
-  color: #555;
+  font-size: 12px;
+  color: #fff;
 }
 
 .right-chart {
   flex: 1;
   height: 100%;
+}
+
+.crystal-0 {
+  background-image: url('@/assets/images/ps_1.png');
+}
+
+.crystal-1 {
+  background-image: url('@/assets/images/ps_2.png');
+}
+
+.crystal-2 {
+  background-image: url('@/assets/images/ps_3.png');
+}
+
+.crystal-3 {
+  background-image: url('@/assets/images/ps_4.png');
 }
 </style>
